@@ -1,77 +1,48 @@
+import { useState } from "react"
+import Filtro from "../components/Filtro"
+import GrillaVideojuegos from "../components/GrillaVideojuegos"
+import Titulo from "../components/Titulo"
+
+const lista =
+    [
+        {
+            nombre: "CSGO",
+            imagen: "./images/csgo.jpg",
+            descripcion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident laudantium mollitia voluptatibus velit id suscipit distinctio, enim rem illo?",
+            categoria: "FPS"
+        },
+        {
+            nombre: "GTA6",
+            imagen: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/698780/capsule_616x353.jpg?t=1681943582",
+            descripcion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident laudantium mollitia voluptatibus velit id suscipit distinctio, enim rem illo?",
+            categoria: "OpenWorld"
+        }
+    ]
+
 function VideojuegosPage(){
+    const categorias = [
+        "FPS", "OpenWorld"
+    ]
+
+    const [listaVideojuegos, setListaVideojuegos] = useState(lista)
+
+    function filtrar(categoria){
+        if(categoria == "-1"){
+            setListaVideojuegos(lista)
+        }
+        else {
+            const listaVideojuegosModificado = lista.filter(function (vj) {
+                return vj.categoria == categoria
+            })
+            setListaVideojuegos(listaVideojuegosModificado)
+        }
+    }
+
     return <div className="px-4">
-        <h1 class="text-4xl">Grilla de Videojuegos</h1>
-        <form class="my-4">
-            <div class="mb-2">
-                <label class="mr-2">Categorías:</label>
-                <select class="border rounded-sm w-40">
-                    <option>FPS</option>
-                    <option>RPG</option>
-                    <option>Estrategia</option>
-                </select>
-            </div>
-            <button class="bg-orange-600 py-2 px-4 rounded-md text-white hover:bg-orange-200 hover:text-gray-700">
-                Filtrar
-            </button>
-        </form>
-        <hr class="mb-4" />
-        <div class="grid grid-cols-3 gap-2">
-            <div class="border rounded-md p-4">
-                <h2 class="text-2xl mb-2 text-orange-700">CSGO</h2>
-                <img class="mb-2"
-                    src="/images/csgo.jpg" />
-                <p class="mb-2 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros sed semper aliquam. Duis quis tellus libero. Quisque consequat mauris eu molestie vestibulum. Nunc at ligula aliquet, accumsan dui ac, lacinia nulla. Quisque in aliquam nisl. Maecenas faucibus est orci, non facilisis arcu vestibulum ut. Nulla congue dapibus sagittis. Pellentesque et lectus at ante convallis tristique vitae in dolor. Donec varius mauris id enim cursus ultrices. Sed a lobortis quam.
-                </p>
-                <span class="text-xs bg-orange-600 rounded-full text-white px-2 py-1">
-                    RPG
-                </span>
-            </div>
-            <div class="border rounded-md p-4">
-                <h2 class="text-2xl mb-2 text-orange-700">CSGO</h2>
-                <img class="mb-2"
-                    src="/images/csgo.jpg" />
-                <p class="mb-2 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros sed semper aliquam. Duis quis tellus libero. Quisque consequat mauris eu molestie vestibulum. Nunc at ligula aliquet, accumsan dui ac, lacinia nulla. Quisque in aliquam nisl. Maecenas faucibus est orci, non facilisis arcu vestibulum ut. Nulla congue dapibus sagittis. Pellentesque et lectus at ante convallis tristique vitae in dolor. Donec varius mauris id enim cursus ultrices. Sed a lobortis quam.
-                </p>
-                <span class="text-xs bg-orange-600 rounded-full text-white px-2 py-1">
-                    RPG
-                </span>
-            </div>
-            <div class="border rounded-md p-4">
-                <h2 class="text-2xl mb-2 text-orange-700">CSGO</h2>
-                <img class="mb-2"
-                    src="/images/csgo.jpg" />
-                <p class="mb-2 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros sed semper aliquam. Duis quis tellus libero. Quisque consequat mauris eu molestie vestibulum. Nunc at ligula aliquet, accumsan dui ac, lacinia nulla. Quisque in aliquam nisl. Maecenas faucibus est orci, non facilisis arcu vestibulum ut. Nulla congue dapibus sagittis. Pellentesque et lectus at ante convallis tristique vitae in dolor. Donec varius mauris id enim cursus ultrices. Sed a lobortis quam.
-                </p>
-                <span class="text-xs bg-orange-600 rounded-full text-white px-2 py-1">
-                    RPG
-                </span>
-            </div>
-            <div class="border rounded-md p-4">
-                <h2 class="text-2xl mb-2 text-orange-700">CSGO</h2>
-                <img class="mb-2"
-                    src="/images/csgo.jpg" />
-                <p class="mb-2 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros sed semper aliquam. Duis quis tellus libero. Quisque consequat mauris eu molestie vestibulum. Nunc at ligula aliquet, accumsan dui ac, lacinia nulla. Quisque in aliquam nisl. Maecenas faucibus est orci, non facilisis arcu vestibulum ut. Nulla congue dapibus sagittis. Pellentesque et lectus at ante convallis tristique vitae in dolor. Donec varius mauris id enim cursus ultrices. Sed a lobortis quam.
-                </p>
-                <span class="text-xs bg-orange-600 rounded-full text-white px-2 py-1">
-                    RPG
-                </span>
-            </div>
-            <div class="border rounded-md p-4">
-                <h2 class="text-2xl mb-2 text-orange-700">CSGO</h2>
-                <img class="mb-2"
-                    src="/images/csgo.jpg" />
-                <p class="mb-2 text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros sed semper aliquam. Duis quis tellus libero. Quisque consequat mauris eu molestie vestibulum. Nunc at ligula aliquet, accumsan dui ac, lacinia nulla. Quisque in aliquam nisl. Maecenas faucibus est orci, non facilisis arcu vestibulum ut. Nulla congue dapibus sagittis. Pellentesque et lectus at ante convallis tristique vitae in dolor. Donec varius mauris id enim cursus ultrices. Sed a lobortis quam.
-                </p>
-                <span class="text-xs bg-orange-600 rounded-full text-white px-2 py-1">
-                    RPG
-                </span>
-            </div>
-        </div>
+        <Titulo />
+        <Filtro categorias={ categorias } onFiltro={ filtrar } />
+        <hr className="mb-4" />
+        <GrillaVideojuegos listaVideojuegos={ listaVideojuegos }/>
     </div>
 }
 export default VideojuegosPage
