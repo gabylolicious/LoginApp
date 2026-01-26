@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Cabecera from "../components/Cabecera"
 import Formulario from "../components/Formulario"
 import Mensaje from "../components/Mensaje"
@@ -8,6 +8,17 @@ function LoginPage() {
     const [mensajeVisible, setMensajeVisible] = useState(false)
 
     const navigate = useNavigate()
+
+    useEffect(function() {
+        const datosLogin = localStorage.getItem("DATOS_LOGIN")
+        if(datosLogin != null){
+            const login = JSON.parse(datosLogin)
+            if(login.ingreso == true){
+                navigate("/main")
+                return
+            }
+        }
+    }, [])
 
     function login(correo, password){
         if(correo == "PW" && password == "123"){
