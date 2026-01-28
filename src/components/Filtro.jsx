@@ -14,8 +14,8 @@ function Filtro({categorias, onFiltro}){
 
                 {
                     categorias.map( function(categoria){
-                        return <option key={categoria} value={categoria}>
-                            { categoria }
+                        return <option key={categoria.id} value={categoria.id}>
+                            { categoria.nombre }
                         </option>
                     })
                 }

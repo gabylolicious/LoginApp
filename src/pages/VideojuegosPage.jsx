@@ -1,30 +1,12 @@
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import Filtro from "../components/Filtro"
 import GrillaVideojuegos from "../components/GrillaVideojuegos"
 import Titulo from "../components/Titulo"
 import { useNavigate } from "react-router-dom"
 
-const lista =
-    [
-        {
-            nombre: "CSGO",
-            imagen: "./images/csgo.jpg",
-            descripcion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident laudantium mollitia voluptatibus velit id suscipit distinctio, enim rem illo?",
-            categoria: "FPS"
-        },
-        {
-            nombre: "GTA6",
-            imagen: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/698780/capsule_616x353.jpg?t=1681943582",
-            descripcion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam provident laudantium mollitia voluptatibus velit id suscipit distinctio, enim rem illo?",
-            categoria: "OpenWorld"
-        }
-    ]
-
 function VideojuegosPage(){
-    const categorias = [
-        "FPS", "OpenWorld"
-    ]
     const [listaVideojuegos, setListaVideojuegos] = useState([])
+    const [categorias, setCategorias] = useState([])
     
     const navigate = useNavigate();
 
@@ -41,16 +23,24 @@ function VideojuegosPage(){
         setListaVideojuegos(data)
     }
 
-    function filtrar(categoria){
-        if(categoria == "-1"){
-            setListaVideojuegos(lista)
+    async function filtrar(categoria){
+        const URL = "https://script.google.com/macros/s/AKfycbxMZbg2ZTtWjfgmRVP25A2Kt6i02_SDLcu1asfc9CKNXDxLISrTxqaoK5pdgBrjmc1Ijw/exec"
+        
+        let response
+        if (categoria == "-1"){
+            response = await fetch(URL)
         }
-        else {
-            const listaVideojuegosModificado = lista.filter(function (vj) {
-                return vj.categoria == categoria
-            })
-            setListaVideojuegos(listaVideojuegosModificado)
+        else{
+            response = await fetch(`${URL}?categoria=${categoria}`)
         }
+
+        if (!response.ok){
+            // Lo pintamos en consola
+            console.error("Error de petición. " + response.status)
+            return
+        }
+        const data = await response.json()
+        setListaVideojuegos(data)
     }
 
     function logout(){
@@ -60,8 +50,21 @@ function VideojuegosPage(){
         navigate("/")
     }
 
+    async function obtenerCategoriasHTTP(){
+        const direccionURL = "https://script.google.com/macros/s/AKfycbxMZbg2ZTtWjfgmRVP25A2Kt6i02_SDLcu1asfc9CKNXDxLISrTxqaoK5pdgBrjmc1Ijw/exec?tipo=categorias"
+        const response = await fetch(direccionURL)
+        if (!response.ok){
+            // Lo pintamos en consola
+            console.error("Error de petición. " + response.status)
+            return
+        }
+        const data = await response.json()
+        setCategorias(data)
+    }
+
     useEffect(function() {
         obtenerVideojuegosHTTP()       
+        obtenerCategoriasHTTP()
     }, [])
 
     return <div className="px-4">

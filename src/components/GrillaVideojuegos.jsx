@@ -7,7 +7,7 @@ function GrillaVideojuegos({ listaVideojuegos }) {
             (function(){
                 // Dentro podemos usar lo que queramos (if, for, etc)
                 if(listaVideojuegos.length == 0){
-                    return <div>Cargando...</div>
+                    return <div>Cargando... (no hay videojuegos :c ) </div>
                 }
                 else{
                     return listaVideojuegos.map(function (videojuego) {
